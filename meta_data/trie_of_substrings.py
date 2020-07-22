@@ -1,4 +1,5 @@
 from .dict_of_sentences import sentences_dict
+from utils import normal_string
 
 
 class TrieNode:
@@ -60,5 +61,5 @@ def find_all_substrings(string):
 
 def init_substring_trie():
     for key, sentence in sentences_dict.items():
-        for substring in find_all_substrings(sentence):
+        for substring in find_all_substrings(normal_string(sentence)):
             substrings_trie.insert(substring, key)
