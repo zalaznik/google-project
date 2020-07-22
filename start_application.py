@@ -1,4 +1,4 @@
-from .find_complete_sentences_online import init_system, get_best_k_completions
+from find_complete_sentences_online import init_system, get_best_k_completions
 
 
 if __name__ == "__main__":
@@ -9,6 +9,6 @@ if __name__ == "__main__":
         input_ = input("please enter...\n")
         while input_[-1] != '#':
             # validate_input()
-            completions = get_best_k_completions(input_)
-            print(f"completions: {completions}\n{input_}")
+            for completions in get_best_k_completions(input_):
+                print(f"completions: {completions}\n{input_}")
             input_ += input()
