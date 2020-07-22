@@ -1,5 +1,4 @@
-from complete_to_sentences import find_sources_of_best_complete_strings
-from dict_of_sentences import sentences_dict
+from .dict_of_sentences import sentences_dict
 
 
 class TrieNode:
@@ -18,12 +17,11 @@ class Trie:
         return TrieNode()
 
     def _char_to_index(self, ch):
-
         if ch == ' ':
-            return 27
+            return 26
         return ord(ch) - ord('a')
 
-    def insert(self, sub_string):
+    def insert(self, sub_string, key):
         current_level = self.root
         length = len(sub_string)
 
@@ -34,7 +32,8 @@ class Trie:
                 current_level.children[index] = self.get_node()
             current_level = current_level.children[index]
 
-        current_level.sources_list = find_sources_of_best_complete_strings(sub_string)
+        if len(current_level.sources_list) < 5 and key not in current_level.sources_list:
+            current_level.sources_list.append(key)
 
     def search(self, string):
         current_level = self.root
@@ -60,10 +59,6 @@ def find_all_substrings(string):
 
 
 def init_substring_trie():
-    for sentence in sentences_dict.values():
+    for key, sentence in sentences_dict.items():
         for substring in find_all_substrings(sentence):
-            substrings_trie.insert(substring)
-
-
-
-
+            substrings_trie.insert(substring, key)
