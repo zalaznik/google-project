@@ -53,8 +53,6 @@ class Trie:
 
         return node.sources_list, node.father, len(string) - 1
 
-# need to add the search for the case of add a letter or remove a letter
-# now this func is works for the normal case and for the case of change a letter
     def search(self, sub_string):
 
         # first searching for the simple case
