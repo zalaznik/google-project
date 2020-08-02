@@ -8,11 +8,11 @@ def init_system():
 
 
 def get_best_k_completions(string):
-    sources_list = substrings_trie.search(string)
-    result_as_list = []
+    ids_and_offsets_completions_list = substrings_trie.search(string)
+    sentences_and_offsets_completions_list = []
 
-    for source in sources_list:
-        result_as_list.append(sentences_dict[source])
+    for completion in ids_and_offsets_completions_list:
+        sentences_and_offsets_completions_list.append((sentences_dict[completion[0]], completion[1]))
 
-    return result_as_list
+    return sentences_and_offsets_completions_list
 

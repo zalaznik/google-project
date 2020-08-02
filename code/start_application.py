@@ -13,7 +13,8 @@ def print_completions(the_completions):
     else:
         print(f"Here are the {m} suggestions")
         for i in range(1, m + 1):
-            print(f"{i}. {(completions[i - 1]).completed_sentence} ,source: {(completions[i - 1]).source_text}")
+            print(f"{i}. {(completions[i - 1][0]).completed_sentence} "
+                  f",source: {(completions[i - 1][0]).source_text} ,offset: {(completions[i - 1][1])}")
         print(input_, end='')
 
 

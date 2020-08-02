@@ -23,7 +23,7 @@ class Trie:
             return 26
         return ord(ch) - ord('a')
 
-    def insert(self, sub_string, key):
+    def insert(self, sub_string, key, offset):
         current_level = self.root
         length = len(sub_string)
 
@@ -31,11 +31,11 @@ class Trie:
             index = self.char_to_index(sub_string[level])
 
             if not current_level.children[index]:
-                current_level.children[index] = self.get_node( current_level)
+                current_level.children[index] = self.get_node(current_level)
             current_level = current_level.children[index]
 
         if len(current_level.sources_list) < 5 and key not in current_level.sources_list:
-            current_level.sources_list.append(key)
+            current_level.sources_list.append((key, offset))
 
     def normal_search(self, node, string):
 
@@ -106,10 +106,10 @@ def find_all_substrings(string):
 
     for i in range(0, len_string):
         for j in range(i + 1, len_string + 1):
-            yield string[i: j]
+            yield string[i: j], i
 
 
 def init_substring_trie():
     for key, sentence in sentences_dict.items():
-        for substring in find_all_substrings(normal_string(sentence.completed_sentence)):
-            substrings_trie.insert(substring, key)
+        for substring, offset in find_all_substrings(normal_string(sentence.completed_sentence)):
+            substrings_trie.insert(substring, key, offset)
